@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo:5.0
+    restart: always
+    
+   
+    ports:
+      - 27017:27017
+    volumes:
+      - $PWD:/app
+    
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    volumes:
+      - $PWD:/app  
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+
+      # terminal container >> docker exec -it  sd-019-c-mongodb-commerce_mongo_1  bash
+      # autenticando
+      # mongosh -u userAdmin -p userPassword 
